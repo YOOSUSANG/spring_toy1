@@ -9,9 +9,7 @@ import static jakarta.persistence.FetchType.LAZY;
 
 //주문 상품
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "order_item")
-@DiscriminatorColumn
 @Getter
 public class OrderItem {
     @Id
@@ -43,7 +41,8 @@ public class OrderItem {
         this.count = count;
     }
 
-    public OrderItem(Order order, Integer orderPrice, Integer count) {
+    public OrderItem(Item item, Order order, Integer orderPrice, Integer count) {
+        this.item = item;
         this.order = order;
         this.orderPrice = orderPrice;
         this.count = count;
@@ -65,7 +64,7 @@ public class OrderItem {
     //***** 비지니스 로직 *****//
     //취소시 기존 아이템 수량 복구
     public void cancel() {
-        getItem().addStock(count);
+        getItem().addStock(count); // 변경 감지
     }
 
     //***** 조회 로직 *****//

@@ -33,6 +33,7 @@ public class Order extends BasicEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    //order persist시 자동으로 orderItems도 persist
     @OneToMany(mappedBy = "order", cascade = ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -51,9 +52,9 @@ public class Order extends BasicEntity {
         Delivery newDelivery = new Delivery(this, delivery.getStatus(), delivery.getAddress()); //cascade all이라서 사용 가능
         this.delivery = newDelivery;
     }
-
     public void addOrderItem(OrderItem orderItem) {
-        OrderItem newOrderItem = new OrderItem(this, orderItem.getOrderPrice(), orderItem.getCount());
+        //새로운 Item을 만드는데 이때 기존 orderItem에 대한 item에 연관관계도 넘겨줘야 한다.
+        OrderItem newOrderItem = new OrderItem(orderItem.getItem(),this, orderItem.getOrderPrice(), orderItem.getCount());
         this.orderItems.add(newOrderItem);
     }
 
