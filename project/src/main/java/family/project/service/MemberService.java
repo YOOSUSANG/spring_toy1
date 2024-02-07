@@ -27,7 +27,8 @@ public class MemberService {
         return usernameValidation(member, findMember);
     }
 
-    private Member usernameValidation(Member member, Optional<Member> findMember) {
+    @Transactional
+    public Member usernameValidation(Member member, Optional<Member> findMember) {
         if(findMember.isPresent()){
             throw new DataIntegrityViolationException("이미 회원이 존재합니다.");
         }
