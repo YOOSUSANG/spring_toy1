@@ -16,7 +16,10 @@ public class HealthGroceries extends Item {
     protected HealthGroceries() {
     }
 
-    public HealthGroceries(String shape, String supplementFunction) {
+
+
+    public HealthGroceries(String name, Integer price, Integer stockQuantity, String shape, String supplementFunction) {
+        super(name, price, stockQuantity);
         this.shape = shape;
         this.supplementFunction = supplementFunction;
     }

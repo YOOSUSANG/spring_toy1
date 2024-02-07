@@ -13,7 +13,8 @@ public class Electronic extends Item {
     private String country;
     private String releaseDate;
 
-    public Electronic(String manufacturer, String country, String releaseDate) {
+    public Electronic(String name, Integer price, Integer stockQuantity, String manufacturer, String country, String releaseDate) {
+        super(name, price, stockQuantity);
         this.manufacturer = manufacturer;
         this.country = country;
         this.releaseDate = releaseDate;

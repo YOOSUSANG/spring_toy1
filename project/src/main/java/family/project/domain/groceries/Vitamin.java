@@ -9,9 +9,10 @@ import lombok.Getter;
 @Getter
 public class Vitamin extends HealthGroceries{
 
-    public Vitamin(String shape, String supplementFunction) {
-        super(shape, supplementFunction);
+    public Vitamin(String name, Integer price, Integer stockQuantity, String shape, String supplementFunction) {
+        super(name, price, stockQuantity, shape, supplementFunction);
     }
+
     protected Vitamin() {
 
     }

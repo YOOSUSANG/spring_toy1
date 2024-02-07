@@ -12,12 +12,12 @@ public class Food extends Item {
     private String foodType;
     private String information;
 
-    public Food(Integer calories, String foodType, String information) {
+    public Food(String name, Integer price, Integer stockQuantity, Integer calories, String foodType, String information) {
+        super(name, price, stockQuantity);
         this.calories = calories;
         this.foodType = foodType;
         this.information = information;
     }
-
 
     protected Food() {
     }
