@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template/sub :: common_header(~{::title},~{::link})">
+    <meta charset="UTF-8">
+    <title>내 정보</title>
+    <link>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'')">
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h4>내 정보</h4>
+                <div class="text-center container py-4">
+                    <div class="info-item">
+                        <label>이름:</label>
+                        <span th:text="${member.username}"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>닉네임:</label>
+                        <span th:text="${member.nickname}"></span>
+                        <form th:action="@{/myInfo/nicknameEdit/{id}(id=${member.id})}" method="get"
+                              style="display: inline;">
+                            <button class="btn btn-light" style="font-size: 12px;">닉네임 변경</button>
+                        </form>
+                    </div>
+                    <div class="info-item">
+                        <label>역할:</label>
+                        <span th:text="${member.memberType}"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>아이디:</label>
+                        <span th:text="${member.email}"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>비밀번호:</label>
+                        <input type="password" th:value="${member.password}" style="border: none; outline: none;" disabled>
+                        <form th:action="@{/myInfo/passwordEdit/{id}(id=${member.id})}" method="get"
+                              style="display: inline;">
+                            <button class="btn btn-light" style="font-size: 12px;">비밀번호 변경</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub :: common_header(~{::title},~{::link})">
+    <title th:text="#{label.title.login}"></title>
+    <link href="/css/sign-in.css" rel="stylesheet">
+</head>
+
+<body th:replace="template/notDefaultHeader :: common_bodyNotHeader(~{::main},'d-flex align-items-center py-4 bg-body-tertiary')">
+<main class="form-signin w-100 m-auto">
+    <form action="/login" method="post" th:object="${member}">
+        <img class="mb-4" src="https://getbootstrap.kr/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72"
+             height="57">
+        <h1 class="h3 mb-3 fw-normal">로그인 시작하기</h1>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" th:field="*{email}">
+            <label for="floatingInput" th:text="#{label.member.email}">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" th:field="*{password}">
+            <label for="floatingPassword" th:text="#{label.member.password}">Password</label>
+        </div>
+        <div class="field-error" th:if="${error}" th:text="${exception}"></div>
+        <button class="btn btn-primary w-100 py-2" type="submit" th:text="#{button.login}">Sign in</button>
+        <div class="mt-3 mb-1 text-body-secondary"><a th:href="@{/userJoin}">회원가입</a></div>
+        <!--추후 구글로그인, 네이버 로그인 진행            -->
+        <div class="mt-3 mb-3 text-body-secondary">&copy; 2017–2024</div>
+    </form>
+</main>
+</body>
+</html>
