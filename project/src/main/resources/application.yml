@@ -4,6 +4,8 @@ spring:
     url: jdbc:mysql://localhost:3306/family_db?serverTimezone=Asia/Seoul
     username: root
     password: 1234
+  messages:
+    basename: messages, errors
 
   #  profiles:
   #    active: local

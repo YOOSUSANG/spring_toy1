@@ -1,0 +1,69 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub :: common_header(~{::title},~{::link})">
+    <title th:text="#{label.title.index}"></title>
+    <link href="/css/sign-in.css" rel="stylesheet">
+</head>
+<body th:replace="template/notDefaultHeader :: common_bodyNotHeader(~{::main},'')">
+<main>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a th:href="@{/}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a th:href="@{/}" class="nav-link px-2 text-secondary">Home</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">커뮤니티</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">상품</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">개인 상품</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                </ul>
+
+                <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"><strong th:text="${member.nickname}"></strong> 님 </div>
+                <div class="text-end d-flex align-items-center">
+                    <form th:action="@{/logout}" method="get" class="me-2">
+                        <button type="submit" class="btn btn-outline-light">로그아웃</button>
+                    </form>
+                    <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/userJoin}'|">회원가입</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="py-5 text-center container">
+        <h1>보류</h1>
+    </section>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#55595c"/>
+                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                </div>
+                                <small class="text-body-secondary">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+</body>
+</html>

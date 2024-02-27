@@ -1,6 +1,6 @@
 package family.project.domain;
 
-import family.project.exception.NotEnoughStockException;
+import family.project.domain.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
 
