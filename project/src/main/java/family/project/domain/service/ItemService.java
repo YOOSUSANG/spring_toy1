@@ -1,7 +1,7 @@
-package family.project.service;
+package family.project.domain.service;
 
 import family.project.domain.Item;
-import family.project.repository.ItemRepository;
+import family.project.domain.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

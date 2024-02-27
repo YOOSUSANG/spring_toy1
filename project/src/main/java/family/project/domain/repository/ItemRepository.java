@@ -1,4 +1,4 @@
-package family.project.repository;
+package family.project.domain.repository;
 
 import family.project.domain.Item;
 import org.springframework.data.domain.Sort;
