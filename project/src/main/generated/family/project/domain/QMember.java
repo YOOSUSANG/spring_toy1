@@ -39,6 +39,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final EnumPath<family.project.domain.enums.MemberType> memberType = createEnum("memberType", family.project.domain.enums.MemberType.class);
 
+    public final StringPath nickname = createString("nickname");
+
     public final ListPath<Order, QOrder> orders = this.<Order, QOrder>createList("orders", Order.class, QOrder.class, PathInits.DIRECT2);
 
     public final StringPath password = createString("password");
