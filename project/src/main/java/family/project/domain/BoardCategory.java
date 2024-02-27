@@ -44,7 +44,7 @@ public class BoardCategory {
 
     public void addBoard(Board board) {
         this.boards.add(board);
-        board.addBoardCategory(this);
+        board.changeBoardCategory(this);
     }
 
     public void changeParent(BoardCategory parent){
