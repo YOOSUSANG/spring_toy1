@@ -4,7 +4,7 @@ import family.project.domain.Address;
 import family.project.domain.Member;
 import family.project.domain.enums.MemberType;
 import family.project.domain.enums.RoleType;
-import org.assertj.core.api.Assertions;
+import family.project.domain.service.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
