@@ -51,7 +51,8 @@ public class Board extends BasicEntity {
     //Attachments(파일 첨부),
 
 
-    protected Board() {}
+    protected Board() {
+    }
 
     public Board(Integer views, Integer commentsCount, Integer likesCount) {
         this.views = views;
@@ -63,6 +64,16 @@ public class Board extends BasicEntity {
     public void changeMember(Member member) {
         this.member = member;
         member.getBoards().add(this);
+    }
+
+    public void removeMember(Member member) {
+        this.member = null;
+        member.getBoards().remove(this);
+    }
+
+    public void changeBoardCategory(BoardCategory boardCategory) {
+        this.boardCategory = boardCategory;
+        boardCategory.getBoards().add(this);
     }
 
     public void changeTitle(String title) {
@@ -88,30 +99,40 @@ public class Board extends BasicEntity {
     }
 
 
-    public void addBoardCategory(BoardCategory boardCategory) {
-        this.boardCategory = boardCategory;
-    }
-
-
     //***** 생성 메소드 *****//
-    public static Board createBoard(Member member, String title, String content,BoardTag boardTag,Boolean publicIsPrivate,String... imgs){
+    public static Board createBoard(Member member, String title, String content, BoardTag boardTag, Boolean publicIsPrivate, String... imgs) {
         Board newBoard = new Board(0, 0, 0);
         newBoard.changeMember(member);
+//        newBoard.changeBoardCategory(boardCategory);
         newBoard.changeTitle(title);
         newBoard.changeContent(content);
         newBoard.changeBoardTag(boardTag);
         newBoard.changePuIsPri(publicIsPrivate);
         newBoard.addImg(imgs);
 
-
         return newBoard;
     }
+
     //***** 비지니스 메소드 *****//
+    public void addViews() {
+        this.views += 1;
+    }
 
+    public void addCommentsCount() {
+        this.commentsCount += 1;
+    }
 
+    public void removeCommentsCount() {
+        this.commentsCount -= 1;
+    }
 
+    public void addLikesCount() {
+        this.likesCount += 1;
+    }
 
-
+    public void removeLikesCount() {
+        this.likesCount -= 1;
+    }
 
 
 }
