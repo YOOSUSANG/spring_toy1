@@ -6,18 +6,17 @@ import family.project.domain.enums.OrderStatus;
 import family.project.domain.enums.RoleType;
 import family.project.domain.food.Food;
 import family.project.domain.groceries.Vitamin;
-import family.project.dto.OrderDtoTest;
-import family.project.dto.OrderSearchCondition;
-import family.project.exception.NotEnoughStockException;
-import family.project.repository.OrderRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.junit.jupiter.api.Assertions;
+import family.project.domain.service.ItemService;
+import family.project.domain.service.MemberService;
+import family.project.domain.service.OrderService;
+import family.project.web.dto.OrderDto;
+import family.project.web.dto.OrderSearchCondition;
+import family.project.domain.exception.NotEnoughStockException;
+import family.project.domain.repository.OrderRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -150,34 +149,34 @@ class OrderServiceTest {
         String userEmail1 = "dbtntkd456@naver.com";
         String userEmail2 = "poii9927@ajou.ac.kr";
         OrderSearchCondition notSearchCondition = new OrderSearchCondition(null, null, null, null);
-        List<OrderDtoTest> orderDtoTests1 = orderService.searchCondition(notSearchCondition, userEmail1);
+        List<OrderDto> orderDtoTests1 = orderService.searchCondition(notSearchCondition, userEmail1);
         //주문 상태
         OrderSearchCondition orderStatusSearchCondition1 = new OrderSearchCondition(null, OrderStatus.ORDER, null, null);
-        List<OrderDtoTest> orderDtoTests2 = orderService.searchCondition(orderStatusSearchCondition1, userEmail1);
+        List<OrderDto> orderDtoTests2 = orderService.searchCondition(orderStatusSearchCondition1, userEmail1);
         OrderSearchCondition orderStatusSearchCondition2 = new OrderSearchCondition(null, OrderStatus.CANCEL, null, null);
-        List<OrderDtoTest> orderDtoTests3 = orderService.searchCondition(orderStatusSearchCondition2, userEmail1);
+        List<OrderDto> orderDtoTests3 = orderService.searchCondition(orderStatusSearchCondition2, userEmail1);
         //년도 체크
         OrderSearchCondition orderYearSearchCondition3 = new OrderSearchCondition(null, null, 2024, null);
-        List<OrderDtoTest> orderDtoTests4 = orderService.searchCondition(orderYearSearchCondition3, userEmail1);
+        List<OrderDto> orderDtoTests4 = orderService.searchCondition(orderYearSearchCondition3, userEmail1);
         //월 체크
         OrderSearchCondition orderMonthSearchCondition4 = new OrderSearchCondition(null, null, null, 2);
-        List<OrderDtoTest> orderDtoTests5 = orderService.searchCondition(orderMonthSearchCondition4, userEmail1);
+        List<OrderDto> orderDtoTests5 = orderService.searchCondition(orderMonthSearchCondition4, userEmail1);
         //년 월 체크
         OrderSearchCondition orderYearMonthSearchCondition5 = new OrderSearchCondition(null, null, 2024, 2);
-        List<OrderDtoTest> orderDtoTests6 = orderService.searchCondition(orderYearMonthSearchCondition5, userEmail1);
+        List<OrderDto> orderDtoTests6 = orderService.searchCondition(orderYearMonthSearchCondition5, userEmail1);
 
         //이름체크
         OrderSearchCondition orderNameSearchCondition6 = new OrderSearchCondition("루테인", null, null, null);
-        List<OrderDtoTest> orderDtoTests7 = orderService.searchCondition(orderNameSearchCondition6, userEmail1);
+        List<OrderDto> orderDtoTests7 = orderService.searchCondition(orderNameSearchCondition6, userEmail1);
         OrderSearchCondition orderNameSearchCondition7 = new OrderSearchCondition("BBQ 황금 올리브", null, null, null);
-        List<OrderDtoTest> orderDtoTests8 = orderService.searchCondition(orderNameSearchCondition7, userEmail1);
-        List<OrderDtoTest> orderDtoTests9 = orderService.searchCondition(orderNameSearchCondition6, userEmail2);
-        List<OrderDtoTest> orderDtoTests10 = orderService.searchCondition(orderNameSearchCondition7, userEmail2);
+        List<OrderDto> orderDtoTests8 = orderService.searchCondition(orderNameSearchCondition7, userEmail1);
+        List<OrderDto> orderDtoTests9 = orderService.searchCondition(orderNameSearchCondition6, userEmail2);
+        List<OrderDto> orderDtoTests10 = orderService.searchCondition(orderNameSearchCondition7, userEmail2);
 
 
         //년 이름체크
         OrderSearchCondition orderNameSearchCondition9 = new OrderSearchCondition("루테인", null, 2024, null);
-        List<OrderDtoTest> orderDtoTests11 = orderService.searchCondition(orderNameSearchCondition9, userEmail1);
+        List<OrderDto> orderDtoTests11 = orderService.searchCondition(orderNameSearchCondition9, userEmail1);
 
 
         //then

@@ -1,4 +1,4 @@
-package family.project.dto;
+package family.project.web.dto;
 
 import family.project.domain.enums.OrderStatus;
 import lombok.AllArgsConstructor;

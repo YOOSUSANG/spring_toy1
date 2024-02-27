@@ -1,11 +1,11 @@
-package family.project.repository;
+package family.project.domain.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import family.project.domain.enums.OrderStatus;
-import family.project.dto.OrderDtoTest;
-import family.project.dto.OrderSearchCondition;
+import family.project.web.dto.OrderDto;
+import family.project.web.dto.OrderSearchCondition;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,9 +32,9 @@ public class OrderRepositorySearchCustomImpl implements OrderRepositorySearchCus
 
 
     @Override
-    public List<OrderDtoTest> search(OrderSearchCondition condition, String email) {
-        List<OrderDtoTest> result = query
-                .select(Projections.constructor(OrderDtoTest.class,
+    public List<OrderDto> search(OrderSearchCondition condition, String email) {
+        List<OrderDto> result = query
+                .select(Projections.constructor(OrderDto.class,
                         order
                 ))
                 .from(order)
@@ -61,9 +61,9 @@ public class OrderRepositorySearchCustomImpl implements OrderRepositorySearchCus
         return hasText(email) ? member.email.eq(email) : null;
     }
 
-    private List<OrderDtoTest> orderItemNameEq(String orderItemName, List<OrderDtoTest> result) {
+    private List<OrderDto> orderItemNameEq(String orderItemName, List<OrderDto> result) {
         return result.stream()
-                .filter(orderDtoTest -> orderDtoTest.getOrderItems().stream()
+                .filter(orderDto -> orderDto.getOrderItems().stream()
                         .anyMatch(orderItemDtoTest -> orderItemDtoTest.getItemName().equals(orderItemName))).collect(Collectors.toList());
     }
 

@@ -1,7 +1,6 @@
-package family.project.repository;
+package family.project.domain.repository;
 
 import family.project.domain.Order;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +17,8 @@ public interface OrderRepository extends JpaRepository<Order, Long>, OrderReposi
     Optional<Order> findById(Long id);
 
     @Override
-    List<Order> findAll(Sort sort);
+    List<Order> findAll();
+
 
     @Query("select o from Order o" +
             " join fetch o.member m" +

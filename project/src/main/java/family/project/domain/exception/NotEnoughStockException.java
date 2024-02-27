@@ -1,4 +1,4 @@
-package family.project.exception;
+package family.project.domain.exception;
 
 public class NotEnoughStockException extends RuntimeException {
     public NotEnoughStockException() {

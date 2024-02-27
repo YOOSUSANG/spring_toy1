@@ -1,13 +1,12 @@
-package family.project.service;
+package family.project.domain.service;
 
 import family.project.domain.*;
 import family.project.domain.enums.DeliveryStatus;
-import family.project.domain.enums.OrderStatus;
-import family.project.dto.OrderDtoTest;
-import family.project.dto.OrderSearchCondition;
-import family.project.repository.ItemRepository;
-import family.project.repository.MemberRepository;
-import family.project.repository.OrderRepository;
+import family.project.domain.repository.ItemRepository;
+import family.project.domain.repository.OrderRepository;
+import family.project.web.dto.OrderDto;
+import family.project.web.dto.OrderSearchCondition;
+import family.project.domain.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +56,7 @@ public class OrderService {
         return orderRepository.findByMyOrders(email);
     }
 
-    public List<OrderDtoTest> searchCondition(OrderSearchCondition orderSearchCondition, String email){
+    public List<OrderDto> searchCondition(OrderSearchCondition orderSearchCondition, String email){
         return orderRepository.search(orderSearchCondition, email);
     }
 
