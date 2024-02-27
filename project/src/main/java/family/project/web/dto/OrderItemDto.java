@@ -1,18 +1,18 @@
-package family.project.dto;
+package family.project.web.dto;
 
 import family.project.domain.OrderItem;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class OrderItemDtoTest {
+public class OrderItemDto {
 
     private Long orderItemId;
     private String itemName;
     private String img;
     private int orderPrice;
     private int count;
-    public OrderItemDtoTest(OrderItem orderItem) {
+    public OrderItemDto(OrderItem orderItem) {
         this.orderItemId = orderItem.getId();
         this.itemName = orderItem.getItem().getName(); // LAZY -> Batch size 없을 시 각 호출
         this.img = orderItem.getItem().getImg();// LAZY -> Batch size 없을 시 각 호출
