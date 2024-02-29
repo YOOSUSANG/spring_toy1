@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="common_header(title,links)">
+<head th:fragment="common_header(title,links,style)">
     <meta charset="UTF-8">
     <script src="https://getbootstrap.kr/docs/5.3/assets/js/color-modes.js"></script>
     <title th:replace="${title}">Title</title>
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/sidebars.css" rel="stylesheet">
     <th:block th:replace="${links}"/>
     <style>
         .field-error {
@@ -17,37 +18,12 @@
         body, html {
             height: 100%;
         }
-        .container-fluid {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .form-group {
-            display: flex;
-            align-items: center;
-        }
-        .form-group label {
-            margin-right: 50px;
-            white-space: nowrap;
-            text-align: right;
-        }
-        .form-group input {
-            width: 300px; /* 여기에 원하는 너비를 지정하세요 */
-        }
-        .info-item {
-            text-align: left;
-            margin-bottom: 10px;
-        }
-
-        .info-item label {
-            font-weight: bold;
-            margin-right: 10px;
-        }
+    </style>
+    <style th:replace="${style}">
     </style>
 
 </head>
-<body th:class="${bodyClassName}" th:fragment="common_body(divs,bodyClassName)">
+<body th:class="${bodyClassName}" th:fragment="common_body(divs,bodyClassName,selectHeaderName,headerloginCheck,headerExsist)">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check2" viewBox="0 0 16 16">
             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -116,34 +92,46 @@
             </li>
         </ul>
     </div>
+    <th:block th:if="${headerExsist}">
+        <header class="p-3 text-bg-dark">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a th:href="@{/}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                    </a>
 
-    <header class="p-3 text-bg-dark">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a th:href="@{/}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-                </a>
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a th:href="@{/}" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'home' ? 'text-secondary' : 'text-white'">Home</a></li>
+                        <li><a th:href="@{/community}" class="nav-link px-2" th:classappend="${selectHeaderName} == 'community'? 'text-secondary' : 'text-white'">커뮤니티</a></li>
+                        <li><a href="#" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'items'? 'text-secondary' : 'text-white'">상품</a></li>
+                        <li><a href="#" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'privateItem'? 'text-secondary' : 'text-white'">개인 상품</a></li>
+                        <li><a href="#" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'about'? 'text-secondary' : 'text-white'">About</a></li>
+                    </ul>
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a th:href="@{/}" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">커뮤니티</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">상품</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">개인 상품</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-                </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-                </form>
+                    <th:block th:unless="${headerloginCheck}">
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                            <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+                        </form>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-outline-light me-2" th:onclick="|location.href='@{/loginhome}'|">로그인</button>
+                            <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/userjoin}'|">회원가입</button>
+                        </div>
+                    </th:block>
 
-                <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2" th:onclick="|location.href='@{/loginHome}'|">로그인</button>
-                    <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/userJoin}'|">회원가입</button>
+                    <th:block th:if="${headerloginCheck}">
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"><strong th:text="${nickname}"></strong> 님</div>
+                        <div class="text-end d-flex align-items-center">
+                            <form th:action="@{/logout}" method="get" class="me-2">
+                                <button type="submit" class="btn btn-outline-light">로그아웃</button>
+                            </form>
+                            <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/myinfo/{id}(id=${member.id})}'|">내 정보</button>
+                        </div>
+                    </th:block>
                 </div>
             </div>
-        </div>
-    </header>
-
+        </header>
+    </th:block>
     <!-- 동적인 부분 th:replace에 들어온다.-->
     <div th:replace="${divs}"></div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

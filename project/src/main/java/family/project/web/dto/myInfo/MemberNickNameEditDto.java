@@ -15,7 +15,6 @@ public class MemberNickNameEditDto {
     @Length(max = 8)
     private String nickname;
 
-
     public MemberNickNameEditDto(Long id) {
         this.id = id;
     }

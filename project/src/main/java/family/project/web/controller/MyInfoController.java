@@ -1,12 +1,14 @@
 package family.project.web.controller;
 
 import family.project.domain.Member;
+import family.project.domain.security.PrincipalDetails;
 import family.project.domain.service.MemberService;
 import family.project.web.dto.myInfo.MemberNickNameEditDto;
 import family.project.web.dto.myInfo.MyInfoDto;
 import family.project.web.dto.myInfo.MyInfoPasswordEditDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,33 +23,45 @@ import java.util.Objects;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/myInfo")
+@RequestMapping("/myinfo")
 public class MyInfoController {
-
 
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    //해당 controller에 nickname 모두 attribute
+    @ModelAttribute("nickname")
+    public String nickname(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Member member = principalDetails.getMember();
+        String nickname = member.getNickname();
+        return nickname;
+    }
+
+
     @GetMapping("/{id}")
     public String myInfo(@PathVariable("id") Long id, Model model) {
         Member findMember = memberService.search(id);
 
+        String nickname = findMember.getNickname();
         MyInfoDto myInfoDto = new MyInfoDto(findMember.getId(),findMember.getUsername(), findMember.getNickname(), findMember.getMemberType(), findMember.getEmail(), findMember.getPassword());
         model.addAttribute("member", myInfoDto);
+
         return "myInfo";
     }
 
     @GetMapping("/nicknameEdit/{id}")
     public String myInfoNicknameEdit(@PathVariable("id") Long id, Model model) {
         Member findMember = memberService.search(id);
+        String nickname = findMember.getNickname();
         MemberNickNameEditDto memberNickNameEditDto = new MemberNickNameEditDto(findMember.getId());
         model.addAttribute("member", memberNickNameEditDto);
-        model.addAttribute("nickname", findMember.getNickname());
         return "myInfoNickname";
-
     }
 
     @GetMapping("/passwordEdit/{id}")
     public String myInfoPasswordEdit(@PathVariable("id")Long id, Model model) {
+        Member findMember = memberService.search(id);
+        String nickname = findMember.getNickname();
         model.addAttribute("member", new MyInfoPasswordEditDto(id));
         return "myInfoPassword";
 

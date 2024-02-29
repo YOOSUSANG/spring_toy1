@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub ::common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title th:text="#{label.title.community}">커뮤니티</title>
+    <link href="/css/cover.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style></style>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'','community',true,true)">
+<main>
+    <nav th:replace="template/comunitysidebar :: common_sidebar()"></nav>
+</main>
+
+</body>
+</html>

@@ -30,13 +30,13 @@ public class JoinController {
     }
 
 
-    @GetMapping("/userJoin")
+    @GetMapping("/userjoin")
     public String join(Model model) {
         model.addAttribute("member", new MemberJoinDto());
         return "joinForm";
     }
 
-    @PostMapping("/userJoin")
+    @PostMapping("/userjoin")
     public String join_post(@Validated @ModelAttribute("member") MemberJoinDto memberJoinDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="template/sub :: common_header(~{::title},~{::link})">
-    <meta charset="UTF-8">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
     <title>Home</title>
     <link href="/css/cover.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style></style>
 </head>
-<body th:replace="template/sub :: common_body(~{::main},'')">
+<body th:replace="template/sub :: common_body(~{::main},'','home',false,true)">
 <main>
     <section class="py-5 text-center container">
        <h1>보류</h1>

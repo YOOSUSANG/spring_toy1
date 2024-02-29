@@ -1,11 +1,13 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="template/sub :: common_header(~{::title},~{::link})">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
     <title>회원가입</title>
     <link href="/css/checkout.css" rel="stylesheet">
+    <style></style>
 </head>
 
-<body th:replace="template/notDefaultHeader :: common_bodyNotHeader(~{::main},'bg-body-tertiary')">
+<body th:replace="template/sub :: common_body(~{::main},'','',false,false)">
+<header></header>
 <main class="container">
     <div class="py-5 text-center">
         <a th:href="@{/}">
@@ -17,7 +19,7 @@
     </div>
     <div class="row g-5 justify-content-center">
         <div class="col-md-7 col-lg-8 ">
-            <form class="needs-validation" th:object="${member}" method="post" action="/userJoin">
+            <form class="needs-validation" th:object="${member}" method="post" action="/userjoin">
                 <div class="row g-3">
                     <div class="col-12">
                         <label for="username" class="form-label" th:text="#{label.member.username}">이름</label>

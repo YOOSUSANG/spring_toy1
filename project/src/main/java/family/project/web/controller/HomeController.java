@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
 
+
     @GetMapping
     public String index(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         //로그인 성공
@@ -22,6 +23,7 @@ public class HomeController {
             Long id = member.getId();
             String nickname = member.getNickname();
             MyInfoToHomeDto MyInfoToHomeDto = new MyInfoToHomeDto(id, nickname);
+            model.addAttribute("nickname", nickname);
             model.addAttribute("member", MyInfoToHomeDto);
             log.info("username 확인 ={}", principalDetails.getUsername());
             return "loginSuccessIndex";
