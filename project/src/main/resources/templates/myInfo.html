@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="template/sub :: common_header(~{::title},~{::link})">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
     <meta charset="UTF-8">
     <title>내 정보</title>
+    <style>
+        .info-item {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .info-item label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
     <link>
 </head>
-<body th:replace="template/sub :: common_body(~{::main},'')">
+<body th:replace="template/sub :: common_body(~{::main},'','',true,true)">
 
 <main>
     <section class="py-5 text-center container">
@@ -20,7 +31,7 @@
                     <div class="info-item">
                         <label>닉네임:</label>
                         <span th:text="${member.nickname}"></span>
-                        <form th:action="@{/myInfo/nicknameEdit/{id}(id=${member.id})}" method="get"
+                        <form th:action="@{/myinfo/nicknameEdit/{id}(id=${member.id})}" method="get"
                               style="display: inline;">
                             <button class="btn btn-light" style="font-size: 12px;">닉네임 변경</button>
                         </form>
@@ -35,8 +46,9 @@
                     </div>
                     <div class="info-item">
                         <label>비밀번호:</label>
-                        <input type="password" th:value="${member.password}" style="border: none; outline: none;" disabled>
-                        <form th:action="@{/myInfo/passwordEdit/{id}(id=${member.id})}" method="get"
+                        <input type="password" th:value="${member.password}" style="border: none; outline: none;"
+                               disabled>
+                        <form th:action="@{/myinfo/passwordEdit/{id}(id=${member.id})}" method="get"
                               style="display: inline;">
                             <button class="btn btn-light" style="font-size: 12px;">비밀번호 변경</button>
                         </form>
