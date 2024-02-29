@@ -1,11 +1,12 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="template/sub :: common_header(~{::title},~{::link})">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
     <title th:text="#{label.title.login}"></title>
     <link href="/css/sign-in.css" rel="stylesheet">
+    <style></style>
 </head>
 
-<body th:replace="template/notDefaultHeader :: common_bodyNotHeader(~{::main},'d-flex align-items-center py-4 bg-body-tertiary')">
+<body th:replace="template/sub :: common_body(~{::main},'d-flex align-items-center py-4 bg-body-tertiary','',false,false)">
 <main class="form-signin w-100 m-auto">
     <form action="/login" method="post" th:object="${member}">
         <img class="mb-4" src="https://getbootstrap.kr/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72"
