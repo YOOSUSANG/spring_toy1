@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:fragment="common_sidebar()" class="flex-shrink-0 p-3" style="width: 280px;">
+
+    <a th:href="@{/community/{boardName}(boardName=${boardTags[0].name()})}" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24">
+            <use xlink:href="#bootstrap"/>
+        </svg>
+        <span class="fs-5 fw-semibold">전체 게시판</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#travel-collapse" aria-expanded="true" th:text="${boardTags[1].description}">
+            </button>
+            <div class="collapse show" id="travel-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li th:each="index :${#numbers.sequence(2,5)}">
+                        <a th:href="@{/community/{boardName}(boardName=${boardTags[index].name()})}" class="link-body-emphasis d-inline-flex text-decoration-none rounded" th:text="${boardTags[index].description}"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#baby-collapse" aria-expanded="true" th:text="${boardTags[6].description}">
+            </button>
+            <div class="collapse show" id="baby-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li th:each="index :${#numbers.sequence(7,10)}">
+                        <a th:href="@{/community/{boardName}(boardName=${boardTags[index].name()})}" class="link-body-emphasis d-inline-flex text-decoration-none rounded" th:text="${boardTags[index].description}"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#food-collapse" aria-expanded="true" th:text="${boardTags[11].description}">
+            </button>
+            <div class="collapse show" id="food-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li th:each="index :${#numbers.sequence(12,14)}">
+                        <a th:href="@{/community/{boardName}(boardName=${boardTags[index].name()})}" class="link-body-emphasis d-inline-flex text-decoration-none rounded" th:text="${boardTags[index].description}"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>
