@@ -15,7 +15,7 @@ import java.util.Objects;
 @RequestMapping()
 public class LoginController {
 
-    @GetMapping("/loginHome")
+    @GetMapping("/loginhome")
     public String loginHome(@ModelAttribute("member") LoginDto loginDto, @RequestParam(value = "logout", required = false) String logout) {
 
         if (Objects.equals(logout, "")) {
