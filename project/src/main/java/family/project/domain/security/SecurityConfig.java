@@ -46,7 +46,7 @@ public class SecurityConfig {
                                 .anyRequest().permitAll())
                 .formLogin(formLogin ->
                         formLogin
-                                .loginPage("/loginHome") // 권한이 없는 곳에 가면 해당 경로로 리다이렉트된다.
+                                .loginPage("/loginhome") // 권한이 없는 곳에 가면 해당 경로로 리다이렉트된다.
                                 .loginProcessingUrl("/login")
                                 .failureHandler(new CustomFailureHandler(memberService))
                                 .defaultSuccessUrl("/") //로그인 성공후 기본 redirect
