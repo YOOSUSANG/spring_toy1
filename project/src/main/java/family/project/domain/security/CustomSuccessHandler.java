@@ -56,6 +56,31 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                     .buildAndExpand(id)
                     .toUriString();
                 response.sendRedirect(redirectUrl);
+            }else if (targetURI.contains("/community/post/new")) {
+                redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/community/post/new")
+                        .toUriString();
+                response.sendRedirect(redirectUrl);
+
+            }else if (targetURI.contains("/item/new")) {
+                redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/item/new")
+                        .toUriString();
+                //여기서 그냥 targetURI로 해주면 ?continue도 나오기 떄문에 깔끔하게 path를 정리하는게 낫다.
+                response.sendRedirect(redirectUrl);
+            }else if (targetURI.contains("/item/myItem/purchase/confirm")) {
+                redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/item")
+                        .toUriString();
+                //여기서 그냥 targetURI로 해주면 ?continue도 나오기 떄문에 깔끔하게 path를 정리하는게 낫다.
+                response.sendRedirect(redirectUrl);
+            }else if (targetURI.contains("/item/myItem")) {
+                redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/item/myItem")
+                        .toUriString();
+                //여기서 그냥 targetURI로 해주면 ?continue도 나오기 떄문에 깔끔하게 path를 정리하는게 낫다.
+                response.sendRedirect(redirectUrl);
+
             }
         }
         super.onAuthenticationSuccess(request, response, authentication);

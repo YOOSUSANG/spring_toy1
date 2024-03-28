@@ -24,6 +24,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final family.project.domain.mapped.QBasicEntity _super = new family.project.domain.mapped.QBasicEntity(this);
 
+    public final family.project.domain.file.QUploadFile attachFile;
+
     public final family.project.domain.QBoardCategory boardCategory;
 
     public final EnumPath<family.project.domain.enums.BoardTag> boardTag = createEnum("boardTag", family.project.domain.enums.BoardTag.class);
@@ -37,7 +39,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ListPath<String, StringPath> imgs = this.<String, StringPath>createList("imgs", String.class, StringPath.class, PathInits.DIRECT2);
+    public final ListPath<family.project.domain.file.UploadFile, family.project.domain.file.QUploadFile> imgFiles = this.<family.project.domain.file.UploadFile, family.project.domain.file.QUploadFile>createList("imgFiles", family.project.domain.file.UploadFile.class, family.project.domain.file.QUploadFile.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> likesCount = createNumber("likesCount", Integer.class);
 
@@ -70,6 +72,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.attachFile = inits.isInitialized("attachFile") ? new family.project.domain.file.QUploadFile(forProperty("attachFile")) : null;
         this.boardCategory = inits.isInitialized("boardCategory") ? new family.project.domain.QBoardCategory(forProperty("boardCategory"), inits.get("boardCategory")) : null;
         this.member = inits.isInitialized("member") ? new family.project.domain.QMember(forProperty("member"), inits.get("member")) : null;
     }

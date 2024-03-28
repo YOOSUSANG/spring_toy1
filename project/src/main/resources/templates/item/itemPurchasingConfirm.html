@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub ::common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title>내 상품 구매 요청</title>
+    <link href="/css/cover.css" rel="stylesheet">
+    <link href="/css/post.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style></style>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'','privateItem',${principal},true)">
+<main>
+    <hr class="my-3" style="width: 1200px; margin-left: 700px">
+    <div style="width: 700px; margin-left: 800px; position: relative; top: -0px;">
+        <form method="post" th:action="@{/item/myItem/purchasing/delete}">
+            <div style="display: flex; justify-content: space-between;">
+                <h3>내 상품 구매 요청 확인</h3>
+                <th:block th:if="${purchasingItem.size()}!= 0">
+                    <button type="button" class="btn btn-success" onclick='return submit2(this.form);'>구매 요청 승인</button>
+                    <button type="submit" class="btn btn-danger">구매 요청 취소</button>
+                </th:block>
+                <th:block th:if="${purchasingItem.size()}==0">
+                    <button type="submit" class="btn btn-danger" disabled>구매 요청 취소</button>
+                    <button type="button" class="btn btn-success" disabled>구매 요청 승인</button>
+                </th:block>
+            </div>
+            <th:block th:if="${purchasingItem.size()} != 0">
+                <div th:each="purchasingItem : ${purchasingItem}">
+                    <hr class="my-3" style="width: 700px;">
+                    <div class="form-check form-check-inline">
+                        취소 <input type="checkbox" th:field="${deletePurchasing.tradeDeleteIds}" th:value="${purchasingItem.id}"
+                                  class="form-check-input">
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        승인 <input type="checkbox" th:field="${successPurchasing.tradeSuccessIds}" th:value="${purchasingItem.id}"
+                                  class="form-check-input">
+                    </div>
+                    <li class="question_container">
+                        <div style="display: flex; justify-content: space-between;">
+                            <p style="white-space: nowrap;color: #555555;" th:text="${purchasingItem.itemTag.description}">게시판
+                                이름</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                            <h5 style="margin-right: 450px; white-space: nowrap;" th:text="${purchasingItem.name}">제목</h5>
+                        </div>
+                        <p th:text="${purchasingItem.content}">내용</p>
+                        <img th:if="${purchasingItem.imgFile != null and not #lists.isEmpty(purchasingItem.imgFile)}" th:src="|/Item/images/${purchasingItem.imgFile[0].getStoreFileName()}|" width="300" height="300"/>
+                        <footer style="display: flex; justify-content: space-between;">
+                            <div style="color: #666666;">
+                                구매요청자: <span  style="color: red" th:text="${purchasingItem.nickname}"> 요청자</span> | 좋아요: <span th:text="${purchasingItem.likesCount}">0</span>
+                            </div>
+                        </footer>
+                    </li>
+
+                </div>
+            </th:block>
+            <th:block th:if="${purchasingItem.size()} == 0">
+                <h2 class="text-center" style="margin-top: 450px">
+                    나에게 구매 요청 온 상품이 없습니다.<br><br><br>
+                    상품을 다시 구성해보세요!
+                </h2>
+            </th:block>
+        </form>
+    </div>
+    <script th:inline="javascript">
+        function submit2(frm) {
+            frm.action = "/item/myItem/purchasing/success";
+            frm.submit();
+            return true;
+        }
+    </script>
+</main>
+</body>
+</html>

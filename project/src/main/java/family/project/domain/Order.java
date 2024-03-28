@@ -42,6 +42,8 @@ public class Order extends BasicEntity {
     private Delivery delivery;
 
 
+
+
     //***** 연관관계 메소드 *****//
     public void addMember(Member member) {
         this.member = member;

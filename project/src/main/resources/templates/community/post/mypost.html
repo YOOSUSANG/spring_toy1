@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title>내 게시글</title>
+    <link href="/css/cover.css" rel="stylesheet">
+    <link href="/css/post.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style></style>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'','community',${principal},true)">
+<main>
+    <hr class="my-3" style="width: 1200px; margin-left: 700px">
+    <div style="width: 700px; margin-left: 800px; position: relative; top: -0px;">
+        <form th:object="${deletePost}" method="post" th:action="@{/myinfo/myposts/delete}">
+            <div style="display: flex; justify-content: space-between;">
+                <h3>게시글</h3>
+                <th:block th:if="${boards.size()}!= 0">
+                    <button type="submit" class="btn btn-danger">게시판 삭제</button>
+                </th:block>
+                <th:block th:if="${boards.size()==0}">
+                    <button type="submit" class="btn btn-danger" disabled>게시판 삭제</button>
+                </th:block>
+            </div>
+            <th:block th:if="${boards.size()} != 0">
+                <div th:each="board : ${boards}">
+                    <hr class="my-3" style="width: 700px;">
+                    <div class="form-check form-check-inline">
+                        삭제 <input type="checkbox" th:field="*{boardDeleteId}" th:value="${board.id}"
+                                  class="form-check-input">
+                    </div>
+                    <li class="question_container" th:onclick="|location.href='@{/myinfo/post/edit/{id}(id=${board.id})}'|">
+                        <div style="display: flex; justify-content: space-between;">
+                            <p style="white-space: nowrap;color: #555555;" th:text="${board.boardTag.description}">게시판
+                                이름</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                            <h5 style="margin-right: 450px; white-space: nowrap;" th:text="${board.title}">제목</h5>
+                        </div>
+                        <p th:text="${board.content}">내용</p>
+                        <footer style="display: flex; justify-content: space-between;">
+                            <div style="color: #666666;">
+                                작성일:
+                                <time th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mm:ss')}">2024-02-29
+                                </time>
+                            </div>
+                            <div style="margin-left: 20px; color: #666666;">
+                                좋아요: <span th:text="${board.likesCount}">0</span> | 댓글수: <span
+                                    th:text="${board.commentsCount}">0</span> | 조회수: <span th:text="${board.views}">0</span>
+                            </div>
+                        </footer>
+                    </li>
+                </div>
+            </th:block>
+            <th:block th:if="${boards.size()} == 0">
+                <h2 class="text-center" style="margin-top: 450px">
+                    삭제 또는 수정할 게시물이 없습니다.<br><br><br>
+                    게시물을 한번 작성해볼까요??
+                </h2>
+            </th:block>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <style></style>
 </head>
-<body th:replace="template/sub :: common_body(~{::main},'','home',false,true)">
+<body th:replace="template/sub :: common_body(~{::main},'','home',${principal},true)">
 <main>
     <section class="py-5 text-center container">
        <h1>보류</h1>

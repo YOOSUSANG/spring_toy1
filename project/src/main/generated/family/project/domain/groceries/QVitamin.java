@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,44 +18,83 @@ public class QVitamin extends EntityPathBase<Vitamin> {
 
     private static final long serialVersionUID = 1172251940L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QVitamin vitamin = new QVitamin("vitamin");
 
-    public final QHealthGroceries _super = new QHealthGroceries(this);
+    public final QHealthGroceries _super;
 
     //inherited
-    public final ListPath<family.project.domain.CategoryItem, family.project.domain.QCategoryItem> categoryItems = _super.categoryItems;
+    public final ListPath<family.project.domain.CategoryItem, family.project.domain.QCategoryItem> categoryItems;
 
     //inherited
-    public final NumberPath<Long> id = _super.id;
+    public final DateTimePath<java.time.LocalDateTime> createDate;
 
     //inherited
-    public final StringPath img = _super.img;
+    public final NumberPath<Long> id;
 
     //inherited
-    public final StringPath name = _super.name;
+    public final ListPath<family.project.domain.file.UploadFile, family.project.domain.file.QUploadFile> imageFiles;
 
     //inherited
-    public final NumberPath<Integer> price = _super.price;
+    public final StringPath information;
 
     //inherited
-    public final StringPath shape = _super.shape;
+    public final EnumPath<family.project.domain.enums.item.ItemTag> itemTag;
 
     //inherited
-    public final NumberPath<Integer> stockQuantity = _super.stockQuantity;
+    public final NumberPath<Integer> likesCount;
+
+    // inherited
+    public final family.project.domain.QMember member;
 
     //inherited
-    public final StringPath supplementFunction = _super.supplementFunction;
+    public final StringPath name;
+
+    //inherited
+    public final NumberPath<Integer> price;
+
+    //inherited
+    public final NumberPath<Integer> stockQuantity;
+
+    //inherited
+    public final StringPath tradeRegion;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updateDate;
 
     public QVitamin(String variable) {
-        super(Vitamin.class, forVariable(variable));
+        this(Vitamin.class, forVariable(variable), INITS);
     }
 
     public QVitamin(Path<? extends Vitamin> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QVitamin(PathMetadata metadata) {
-        super(Vitamin.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QVitamin(PathMetadata metadata, PathInits inits) {
+        this(Vitamin.class, metadata, inits);
+    }
+
+    public QVitamin(Class<? extends Vitamin> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this._super = new QHealthGroceries(type, metadata, inits);
+        this.categoryItems = _super.categoryItems;
+        this.createDate = _super.createDate;
+        this.id = _super.id;
+        this.imageFiles = _super.imageFiles;
+        this.information = _super.information;
+        this.itemTag = _super.itemTag;
+        this.likesCount = _super.likesCount;
+        this.member = _super.member;
+        this.name = _super.name;
+        this.price = _super.price;
+        this.stockQuantity = _super.stockQuantity;
+        this.tradeRegion = _super.tradeRegion;
+        this.updateDate = _super.updateDate;
     }
 
 }

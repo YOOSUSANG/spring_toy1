@@ -46,7 +46,7 @@ public class QCategoryItem extends EntityPathBase<CategoryItem> {
 
     public QCategoryItem(Class<? extends CategoryItem> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.item = inits.isInitialized("item") ? new QItem(forProperty("item")) : null;
+        this.item = inits.isInitialized("item") ? new QItem(forProperty("item"), inits.get("item")) : null;
         this.itemCategory = inits.isInitialized("itemCategory") ? new QItemCategory(forProperty("itemCategory"), inits.get("itemCategory")) : null;
     }
 

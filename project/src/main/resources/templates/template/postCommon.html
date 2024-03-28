@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<aside th:fragment="common_aside(name,currentState,id,purchasingInterest)" style=" margin-left: 1550px;position: relative; top: -370px;">
+    <div class="rounded-box">
+        <span th:text="${name}"></span>
+        <div th:if="${currentState} == 'item'">등록한 상품 수 : <span th:text="${myAll.size()}">55</span></div>
+        <div th:if="${currentState} == 'community'">등록한 게시물 수 : <span th:text="${myAll.size()}">55</span></div>
+    </div>
+
+    <th:block th:if="${purchasingInterest} == null">
+        <div style="margin-left: 12px; margin-top: 30px">
+            <form action="/item/myItem/purchase/confirm" method="post">
+                <button th:if="${currentPurchasing} == 0 and ${currentPurchase} == 0" type="submit" class="btn btn-success" >구매 요청</button>
+                <button th:if="${currentPurchasing} == 1" type="submit" class="btn btn-success" disabled>구매 요청 완료</button>
+                <button th:if="${currentPurchase} == 1" type="submit" class="btn btn-success" disabled>거래 완료</button>
+                <input type="hidden" name="id" th:value="${id}">
+            </form>
+            <form action="/item/myItem/interest" method="post">
+                <input type="hidden" name="id" th:value="${id}">
+                <button type="submit" class="btn btn-primary">찜하기</button>
+            </form>
+        </div>
+    </th:block>
+</aside>
+</body>
+</html>

@@ -17,7 +17,13 @@ public class HomeController {
 
     @GetMapping
     public String index(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+
         //로그인 성공
+        extractPrincipalAndModel(principalDetails, model);
+        return "index";
+    }
+
+    private void extractPrincipalAndModel(PrincipalDetails principalDetails, Model model) {
         if (principalDetails != null) {
             Member member = principalDetails.getMember();
             Long id = member.getId();
@@ -25,10 +31,10 @@ public class HomeController {
             MyInfoToHomeDto MyInfoToHomeDto = new MyInfoToHomeDto(id, nickname);
             model.addAttribute("nickname", nickname);
             model.addAttribute("member", MyInfoToHomeDto);
-            log.info("username 확인 ={}", principalDetails.getUsername());
-            return "loginSuccessIndex";
         }
-        model.addAttribute("member", new MyInfoToHomeDto());
-        return "index";
+        if (principalDetails==null) {
+            model.addAttribute("member", new MyInfoToHomeDto());
+        }
+        model.addAttribute("principal", principalDetails);
     }
 }

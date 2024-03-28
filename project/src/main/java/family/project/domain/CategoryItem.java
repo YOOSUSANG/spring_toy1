@@ -24,5 +24,8 @@ public class CategoryItem {
     @JoinColumn(name = "item_category_id")
     private ItemCategory itemCategory;
 
+    public void changeItem(Item item) {
+        this.item = item;
+    }
 
 }

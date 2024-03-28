@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title>상품 등록</title>
+    <link>
+    <style></style>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'','item',${principal},false)">
+<!--board 등록과 동일하게 하는 대신 일단 가격만 더 추가 후에 거래하고 싶은 장소는 카카오 지도 api인데 이거는 리액트 영역 그래서 거래 장소 명시-->
+
+<main class="text-center">
+    <div style="margin-top: 100px;">
+        <span style="font-size: 20px">등록하실 상품 태그를 선택해보세요!!</span>
+    </div>
+    <form action="/item/new" th:object="${item}" method="post" enctype="multipart/form-data">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="margin-top: 10px">
+                전체 오류 메시지</p>
+        </div>
+        <select th:field="*{itemTag}" class="form-select text-center" aria-label="Default select example"
+                style="width: 300px;margin-left: 1120px;margin-top: 30px">
+            <option value="" selected>태그 선택</option>
+            <option th:each="itemTag, iterStat : ${itemTags}"
+                    th:if="${iterStat.index} != 0 and ${iterStat.index} !=4 and ${iterStat.index} != 6"
+                    th:value="${itemTag.name()}" th:text="${itemTag.description}">
+            </option>
+        </select>
+
+        <!--            <div class="field-error" th:errors="*{boardTag}"></div>-->
+
+        <div style="width: 700px; margin-left: 920px;">
+            <hr class="my-3">
+            <input class="form-control form-control-lg" type="text" placeholder="제목을 작성해주세요!"
+                   aria-label=".form-control-lg example" th:field="*{name}" th:errorclass="field-error">
+            <ul>
+                </li>
+                <li style="margin-top: 10px; margin-right: 250px">이미지 파일들: <input type="file" multiple="multiple"
+                                                                                  th:field="*{imageFiles}"></li>
+            </ul>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">₩</span>
+                <div class="form-floating">
+                    <!-- 입력된 가격을 천 단위로 포맷팅하여 출력 -->
+                    <input type="text" class="form-control" id="floatingInputGroup1" placeholder="가격" th:field="*{price}" th:errorclass="field-error"/>
+                    <label for="floatingInputGroup1">가격</label>
+                    <div class="field-error" th:errors="*{price}"></div>
+                </div>
+            </div>
+
+            <div class="form-floating" style="margin-top: 30px">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                          style="height: 200px" th:field="*{content}" th:errorclass="field-error"></textarea>
+                <label for="floatingTextarea2">내용</label>
+                <!--                    <div class="field-error" th:errors="*{content}"></div>-->
+            </div>
+            <input class="form-control form-control-lg" type="text" placeholder="만날 장소를 작성해주세요!"
+                   aria-label=".form-control-lg example" th:field="*{tradePlace}" style="margin-top: 20px" th:errorclass="field-error">
+
+            <button type="submit" class="btn btn-success" style="font-size: 20px;width: 500px;margin-top: 50px">상품 등록
+            </button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

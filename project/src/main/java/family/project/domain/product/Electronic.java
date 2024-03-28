@@ -1,27 +1,30 @@
 package family.project.domain.product;
 
 import family.project.domain.Item;
+import family.project.domain.enums.item.ItemTag;
+import family.project.domain.file.UploadFile;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.Getter;
+
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("Electronic")
-public class Electronic extends Item {
+@Getter
+public abstract class Electronic extends Item {
 
-    private String manufacturer;
-    private String country;
-    private String releaseDate;
 
-    public Electronic(String name, Integer price, Integer stockQuantity, String manufacturer, String country, String releaseDate) {
-        super(name, price, stockQuantity);
-        this.manufacturer = manufacturer;
-        this.country = country;
-        this.releaseDate = releaseDate;
+    public Electronic(String name, Integer price, Integer stockQuantity, ItemTag itemTag, String content, String tradeRegion, List<UploadFile> imageFile) {
+        super(name, price, stockQuantity, 0, itemTag, content, tradeRegion, imageFile);
+
     }
+
 
     protected Electronic() {
 
     }
+
 
 }

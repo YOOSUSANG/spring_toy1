@@ -9,14 +9,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositorySearchCustom{
 
-    Optional<Item> findByName(String name);
     @Override
     Optional<Item> findById(Long id);
 
+
+    List<Item> findAllByMemberId(Long id);
+
+    Item findByIdAndMemberId(Long itemId, Long memberId);
+
+
     @Override
     void deleteAll();
+
+    void deleteById(Long id);
 
     @Override
     List<Item> findAll(Sort sort);

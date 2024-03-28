@@ -43,6 +43,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/myInfo/**").authenticated()
+                                .requestMatchers("/community/post/new/**").authenticated()
+                                .requestMatchers("/item/new/**").authenticated()
+                                .requestMatchers("/item/myItem/**").authenticated()
                                 .anyRequest().permitAll())
                 .formLogin(formLogin ->
                         formLogin

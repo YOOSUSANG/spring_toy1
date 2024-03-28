@@ -21,13 +21,13 @@ public class LoginController {
         if (Objects.equals(logout, "")) {
             return "redirect:/"; // 로그아웃시 홈으로
         }
-        return "loginHome";
+        return "login/loginHome";
     }
 
     @GetMapping("/login")
     public String login(@RequestParam("error") String error, @RequestParam("exception") String exception, @ModelAttribute("member") LoginDto loginDto, Model model) {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "loginHome";
+        return "login/loginHome";
     }
 }

@@ -102,9 +102,9 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a th:href="@{/}" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'home' ? 'text-secondary' : 'text-white'">Home</a></li>
-                        <li><a th:href="@{/community}" class="nav-link px-2" th:classappend="${selectHeaderName} == 'community'? 'text-secondary' : 'text-white'">커뮤니티</a></li>
-                        <li><a href="#" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'items'? 'text-secondary' : 'text-white'">상품</a></li>
-                        <li><a href="#" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'privateItem'? 'text-secondary' : 'text-white'">개인 상품</a></li>
+                        <li><a th:href="@{/community/posts}" class="nav-link px-2" th:classappend="${selectHeaderName} == 'community'? 'text-secondary' : 'text-white'">커뮤니티</a></li>
+                        <li><a th:href="@{/item}" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'item'? 'text-secondary' : 'text-white'">상품</a></li>
+                        <li><a th:href="@{/item/myItem}" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'privateItem'? 'text-secondary' : 'text-white'">개인 상품</a></li>
                         <li><a href="#" class="nav-link px-2 " th:classappend="${selectHeaderName} == 'about'? 'text-secondary' : 'text-white'">About</a></li>
                     </ul>
 
@@ -120,7 +120,7 @@
                     </th:block>
 
                     <th:block th:if="${headerloginCheck}">
-                        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"><strong th:text="${nickname}"></strong> 님</div>
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"><strong th:text="${member.nickname}"></strong> 님</div>
                         <div class="text-end d-flex align-items-center">
                             <form th:action="@{/logout}" method="get" class="me-2">
                                 <button type="submit" class="btn btn-outline-light">로그아웃</button>

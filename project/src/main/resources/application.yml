@@ -4,11 +4,13 @@ spring:
     url: jdbc:mysql://localhost:3306/family_db?serverTimezone=Asia/Seoul
     username: root
     password: 1234
+
+  profiles:
+    active: local
+
   messages:
     basename: messages, errors
 
-  #  profiles:
-  #    active: local
   jpa:
     properties:
       hibernate:
@@ -17,7 +19,7 @@ spring:
         default_batch_fetch_size: 100
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.MySQLDialect
 
 # logging
@@ -27,3 +29,5 @@ logging:
       hibernate:
         SQL: debug
 
+file:
+  dir: C:/projectimg/

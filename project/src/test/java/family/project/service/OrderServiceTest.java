@@ -4,6 +4,8 @@ import family.project.domain.*;
 import family.project.domain.enums.MemberType;
 import family.project.domain.enums.OrderStatus;
 import family.project.domain.enums.RoleType;
+import family.project.domain.enums.item.ItemTag;
+import family.project.domain.file.UploadFile;
 import family.project.domain.food.Food;
 import family.project.domain.groceries.Vitamin;
 import family.project.domain.service.ItemService;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
+@SpringBootTest()
 @Transactional
 class OrderServiceTest {
 
@@ -44,7 +47,7 @@ class OrderServiceTest {
         //given
         Member member = Member.craeteMember("yoosusang", null, RoleType.ADMIN, MemberType.BROTHER, new Address("서울", "압구정", "111-111"));
         memberService.register(member);
-        Item item = createHealthGroceries("루테인", 10000, 100, "circle", "Immunity");
+        Item item = createHealthGroceries("루테인", 10000, 100,"눈에 좋은",ItemTag.VITAMIN,"가능동", null);
         itemService.register(item);
         int itemOrderCount = 2;
         //when
@@ -65,7 +68,7 @@ class OrderServiceTest {
         //given
         Member member = Member.craeteMember("yoosusang", null, RoleType.ADMIN, MemberType.BROTHER, new Address("서울", "압구정", "111-111"));
         memberService.register(member);
-        Item item = createHealthGroceries("루테인", 10000, 10, "circle", "Immunity");
+        Item item = createHealthGroceries("루테인", 10000, 10,"눈에 좋은", ItemTag.VITAMIN,"가능동",null);
         itemService.register(item);
         //when
         int itemOrderCount = 11;
@@ -79,7 +82,7 @@ class OrderServiceTest {
         //given
         Member member = Member.craeteMember("yoosusang", null, RoleType.ADMIN, MemberType.BROTHER, new Address("서울", "압구정", "111-111"));
         memberService.register(member);
-        Item item = createHealthGroceries("루테인", 10000, 10, "circle", "Immunity");
+        Item item = createHealthGroceries("루테인", 10000, 10,"눈에 좋은", ItemTag.VITAMIN,"가능동" ,null);
         itemService.register(item);
         int itemOrderCount = 2;
 
@@ -103,8 +106,8 @@ class OrderServiceTest {
         memberService.register(member2);
 
         //아이템 등록
-        Item item1 = createHealthGroceries("루테인", 10000, 10, "circle", "Immunity");
-        Item item2 = createFood("BBQ 황금 올리브", 22000, 10, 2200, "chicken", "촉촉한 치킨");
+        Item item1 = createHealthGroceries("루테인", 10000, 10,"눈에 좋은", ItemTag.VITAMIN,"가능동",null);
+        Item item2 = createFood("BBQ 황금 올리브", 22000, 10, 2200, "촉촉한 치킨","의정부동", ItemTag.AMERICA, null);
         itemService.register(item1);
         itemService.register(item2);
 
@@ -132,8 +135,8 @@ class OrderServiceTest {
         memberService.register(member2);
 
         //아이템 등록
-        Item item1 = createHealthGroceries("루테인", 10000, 10, "circle", "Immunity");
-        Item item2 = createFood("BBQ 황금 올리브", 22000, 10, 2200, "chicken", "촉촉한 치킨");
+        Item item1 = createHealthGroceries("루테인", 10000, 10,"눈에 좋은", ItemTag.VITAMIN,"가능동", null);
+        Item item2 = createFood("BBQ 황금 올리브", 22000, 10, 2200, "촉촉한 치킨", "가능동",ItemTag.AMERICA, null);
         itemService.register(item1);
         itemService.register(item2);
 
@@ -196,13 +199,13 @@ class OrderServiceTest {
     }
 
 
-    private Item createFood(String name, int price, int stockQuantity, int calories, String foodType, String information) {
-        return new Food(name, price, stockQuantity, calories, foodType, information);
+    private Item createFood(String name, int price, int stockQuantity, int calories, String information, String tradeRegion,ItemTag itemTag, List<UploadFile> imageFile) {
+        return new Food(name, price, stockQuantity, calories, itemTag,information, tradeRegion,imageFile);
     }
 
 
-    private Vitamin createHealthGroceries(String name, Integer price, Integer stockQuantity, String shape, String supplementFunction) {
-        return new Vitamin(name, price, stockQuantity, shape, supplementFunction);
+    private Vitamin createHealthGroceries(String name, Integer price, Integer stockQuantity,String content, ItemTag itemTag,String tradeRegion, List<UploadFile> imageFile) {
+        return new Vitamin(name, price, stockQuantity,itemTag,content, tradeRegion, imageFile);
     }
 
 }
