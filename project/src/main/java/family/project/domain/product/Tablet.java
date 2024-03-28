@@ -1,23 +1,26 @@
 package family.project.domain.product;
 
+import family.project.domain.enums.item.ItemTag;
+import family.project.domain.file.UploadFile;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+import java.util.List;
+
 @Entity
 @DiscriminatorValue("Tablet")
-public class Tablet extends Electronic{
-    private String display;
-    private String ram;
-    private String core;
+public class Tablet extends Electronic {
 
-    public Tablet(String name, Integer price, Integer stockQuantity, String manufacturer, String country, String releaseDate, String display, String ram, String core) {
-        super(name, price, stockQuantity, manufacturer, country, releaseDate);
-        this.display = display;
-        this.ram = ram;
-        this.core = core;
+    public Tablet(String name, Integer price, Integer stockQuantity, ItemTag itemTag, String content, String tradeRegion, List<UploadFile> imageFile) {
+        super(name, price, stockQuantity, itemTag, content, tradeRegion, imageFile);
+
     }
 
     protected Tablet() {
+    }
 
+    public static Tablet createTablet(String name, Integer price, Integer stockQuantity, ItemTag itemTag, String content, String tradeRegion, List<UploadFile> imageFile) {
+        Tablet tablet = new Tablet(name, price, stockQuantity, itemTag, content, tradeRegion, imageFile);
+        return tablet;
     }
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+    <link>
+    <style></style>
+</head>
+<body th:replace = "template/sub :: common_body(~{::main},'','community',${principal},false)">
+    <main>
+        <main class="text-center">
+            <div style="margin-top: 100px;">
+                <h2>게시글 수정</h2>
+                <span style="font-size: 20px">게시판 태그를 수정해보세요!!</span>
+            </div>
+            <form action="/myinfo/post/edit" th:object="${post}" method="post" enctype="multipart/form-data">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="margin-top: 10px">전체 오류 메시지</p>
+                </div>
+                <input type="hidden" th:field="*{id}">
+                <select th:field="*{boardTag}" class="form-select text-center" aria-label="Default select example" style="width: 300px;margin-left: 1120px;margin-top: 30px" >
+                    <option value="" selected>태그 선택</option>
+                    <option th:each="boardTag, iterStat : ${boardTags}"
+                            th:if="${iterStat.index} != 0 and ${iterStat.index} !=1 and ${iterStat.index} != 6 and ${iterStat.index} != 11"
+                            th:value="${boardTag.name()}" th:text="${boardTag.description}">
+                    </option>
+                </select>
+
+                <!--            <div class="field-error" th:errors="*{boardTag}"></div>-->
+
+                <div style="width: 700px; margin-left: 920px;">
+                    <hr class="my-3">
+                    <input class="form-control form-control-lg" type="text"
+                           aria-label=".form-control-lg example" th:field="*{title}" >
+                    <!--                <div class="field-error" th:errors="*{title}"></div>-->
+                    <ul>
+                        <li style="margin-top: 10px; margin-right: 290px">첨부파일: <input type="file" th:field="*{attachFile}"></li>
+                        <li style="margin-top: 10px; margin-right: 250px">이미지 파일들: <input type="file" multiple="multiple" th:field="*{imageFiles}"></li>
+                    </ul>
+                    <div class="form-floating" style="margin-top: 30px">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px" th:field="*{content}"></textarea>
+                        <label for="floatingTextarea2">내용</label>
+                        <!--                    <div class="field-error" th:errors="*{content}"></div>-->
+                    </div>
+                    <button type="submit" class="btn btn-success" style="font-size: 20px;width: 500px;margin-top: 50px">수정</button>
+                </div>
+            </form>
+        </main>
+
+    </main>
+    </main>
+</body>
+</html>

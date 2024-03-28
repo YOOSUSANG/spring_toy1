@@ -5,10 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Getter
 public abstract class BasicEntity {
 
     //생성일은 update 막기
@@ -23,6 +25,7 @@ public abstract class BasicEntity {
         createDate = now;
         updateDate = now;
     }
+
 
     @PreUpdate
     public void preUpdate() {

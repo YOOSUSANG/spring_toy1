@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub :: common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title>상품</title>
+    <link href="/css/cover.css" rel="stylesheet">
+    <link href="/css/post.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style>
+        .horizontal-line {
+            border-top: 1px solid rgba(0, 0, 0, 1); /* 연한 회색으로 변경 */
+            width: 90%; /* 수평 라인이 컨테이너의 가로폭을 따라 늘어나도록 합니다. */
+        }
+
+        .horizontal-smallLine {
+            border-top: 1px solid rgba(0, 0, 0, 1); /* 연한 회색으로 변경 */
+            width: 80%; /* 수평 라인이 컨테이너의 가로폭을 따라 늘어나도록 합니다. */
+        }
+
+    </style>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'','item',${principal},true)">
+<main>
+    <nav th:replace="template/comunityCommon :: common_sidebar('item')"></nav>
+    <aside th:replace="template/postCommon :: common_aside(${product[0].nickname},'item',${product[0].id},${currentState})"></aside>
+    <div style="margin-left: 750px; position: relative; top: -600px; width: 800px">
+        <div class="horizontal-line"></div>
+        <br>
+        <h3 th:text="${product[0].name}">제목</h3>
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="color: #666666;">
+                <span th:text="${product[0].itemTag.description}">게시판 이름</span>&nbsp;<time
+                    th:text="${#temporals.format(product[0].createTime, 'yy-MM-dd HH:mm:ss')}">24.09.11.53
+            </time>
+                <span style="color: red"><span th:text="${#numbers.formatInteger(product[0].price,3,'COMMA')}"></span>원</span>
+                <!--            </time>&nbsp;작성 :: 조회수 <span th:text="${product[0].views}">0</span>-->
+
+            </div>
+        </div>
+        <div class="horizontal-smallLine" style="margin-left: 20px; margin-top: 20px"></div>
+        <br>
+        <div style="margin-left: 20px; height: 300px;width: 500px" th:text="${product[0].content}"></div>
+        <div style="margin-left: 50px;margin-bottom: 50px">
+            <img th:if="${product[0].imgFile.size()} != 0" th:each="imgeFile : ${product[0].imgFile}"
+                 th:src="|/community/post/images/${imgeFile.getStoreFileName()}|" width="300" height="300"/>
+        </div>
+        <footer style="display: flex; justify-content: space-between; margin-bottom: 10px">
+            만나는 장소:
+            <div style="margin-right: 100px" th:text="${product[0].tradeRegion}"></div>
+        </footer>
+        <div class="horizontal-line"></div>
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="color: #ffffff;">
+                답변 <span style="color: aqua">0</span>
+            </div>
+        </div>
+        <br>
+        <th:block th:if="${principal}">
+            <input class="form-control form-control-lg" type="text" th:placeholder="${member.nickname} +'님 답변을 작성해보세요!'"
+                   style="width: 600px;margin-left: 20px">
+        </th:block>
+        <!-- 비 로그인시  -->
+        <th:block th:unless="${principal}">
+            <input class="form-control form-control-lg" type="text" placeholder="답변을 작성해주세요."
+                   style="width: 600px;margin-left: 20px">
+        </th:block>
+        <!--input 클릭 시 동적으로 버튼 생성후 확인 취소 이동 댓글 post로 한후 해당 post에서 board 저장후 redirect 자기 자신   -->
+    </div>
+</main>
+</body>
+</html>

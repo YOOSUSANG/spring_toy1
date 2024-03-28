@@ -1,18 +1,22 @@
 body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    min-height: -webkit-fill-available; /* 모바일 브라우저 호환성을 위해 추가 */
+    height: 100vh;
+    overflow-x: hidden; /* 가로 스크롤을 숨김 */
+    overflow-y: auto; /* 세로 스크롤은 필요할 때만 표시 */
 }
 
 html {
     height: -webkit-fill-available;
+    height: 100%;
 }
 
-main {
-    height: 100vh;
-    height: -webkit-fill-available;
-    max-height: 100vh;
+header, footer {
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
+}
+
+header, footer, main {
+    height: calc(100vh - (header.offsetHeight + footer.offsetHeight));
 }
 
 .dropdown-toggle { outline: 0; }

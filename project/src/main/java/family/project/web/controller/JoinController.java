@@ -33,14 +33,14 @@ public class JoinController {
     @GetMapping("/userjoin")
     public String join(Model model) {
         model.addAttribute("member", new MemberJoinDto());
-        return "joinForm";
+        return "join/joinForm";
     }
 
     @PostMapping("/userjoin")
     public String join_post(@Validated @ModelAttribute("member") MemberJoinDto memberJoinDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            return "joinForm";
+            return "join/joinForm";
         }
         String[] split = memberJoinDto.getAddress().split(" ");
         Member newMember = Member.craeteMember(memberJoinDto.getUsername(), memberJoinDto.getNickname(), memberJoinDto.getEmail(),

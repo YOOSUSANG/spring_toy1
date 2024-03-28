@@ -6,9 +6,7 @@ import family.project.domain.enums.MemberType;
 import family.project.domain.enums.RoleType;
 import family.project.domain.mapped.BasicEntity;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.Getter;
-import org.hibernate.validator.constraints.Length;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +33,15 @@ public class Member extends BasicEntity {
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
-
     @Embedded
     private Address address;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interest_item_id")
+    private InterestItem interestItem;
+
+    @OneToMany(mappedBy = "member")
+    private List<Item> items = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
@@ -45,8 +49,20 @@ public class Member extends BasicEntity {
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<PurchaseItem> purchaseItems = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<PurchasingItem> purchasingItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemSaveMember> ItemSaveMembers = new ArrayList<>();
+
+
     protected Member() {
+
+
     }
+
 
 
     public void changeEmail(String email) {
@@ -60,6 +76,12 @@ public class Member extends BasicEntity {
     public void changeNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public void changeInterestItem(InterestItem interestItem) {
+        this.interestItem = interestItem;
+    }
+
+
 
     public Member(String username, String img, RoleType roleType, MemberType memberType, Address address) {
         this.username = username;
@@ -99,8 +121,8 @@ public class Member extends BasicEntity {
         return savedMember;
     }
 
-
-    //***** 연관 메소드 *****//
-
-
+    //***** 비지니스 메소드 *****//
+    public void ItemCancel(Long itemId) {
+        getItemSaveMembers().removeIf(itemSaveMember -> itemSaveMember.getItem().getId() == itemId);
+    }
 }

@@ -37,6 +37,12 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath img = createString("img");
 
+    public final QInterestItem interestItem;
+
+    public final ListPath<Item, QItem> items = this.<Item, QItem>createList("items", Item.class, QItem.class, PathInits.DIRECT2);
+
+    public final ListPath<ItemSaveMember, QItemSaveMember> ItemSaveMembers = this.<ItemSaveMember, QItemSaveMember>createList("ItemSaveMembers", ItemSaveMember.class, QItemSaveMember.class, PathInits.DIRECT2);
+
     public final EnumPath<family.project.domain.enums.MemberType> memberType = createEnum("memberType", family.project.domain.enums.MemberType.class);
 
     public final StringPath nickname = createString("nickname");
@@ -44,6 +50,10 @@ public class QMember extends EntityPathBase<Member> {
     public final ListPath<Order, QOrder> orders = this.<Order, QOrder>createList("orders", Order.class, QOrder.class, PathInits.DIRECT2);
 
     public final StringPath password = createString("password");
+
+    public final ListPath<PurchaseItem, QPurchaseItem> purchaseItems = this.<PurchaseItem, QPurchaseItem>createList("purchaseItems", PurchaseItem.class, QPurchaseItem.class, PathInits.DIRECT2);
+
+    public final ListPath<PurchasingItem, QPurchasingItem> purchasingItems = this.<PurchasingItem, QPurchasingItem>createList("purchasingItems", PurchasingItem.class, QPurchasingItem.class, PathInits.DIRECT2);
 
     public final EnumPath<family.project.domain.enums.RoleType> roleType = createEnum("roleType", family.project.domain.enums.RoleType.class);
 
@@ -71,6 +81,7 @@ public class QMember extends EntityPathBase<Member> {
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
+        this.interestItem = inits.isInitialized("interestItem") ? new QInterestItem(forProperty("interestItem"), inits.get("interestItem")) : null;
     }
 
 }

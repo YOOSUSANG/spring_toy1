@@ -1,0 +1,24 @@
+.question_container{
+    max-width: 700px;
+    list-style-type: none;
+    cursor: pointer; /* 커서 모양을 포인터로 변경 */
+    transition: background-color 0.3s ease; /* 배경색 변경에 transition 효과 추가 */
+}
+
+.question_container:hover,
+.question_container:focus {
+    background-color: #555555; /* 더 연한 어두운 회색으로 배경색 변경 */
+}
+.rounded-box {
+    border-radius: 10px; /* 약간 둥근 모서리를 설정합니다. */
+    background-color: #ffffff; /* 박스 배경색을 설정합니다. */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 기본 그림자 설정 */
+    padding: 20px; /* 박스 안의 여백을 설정합니다. */
+    width: 200px; /* 박스의 너비를 설정합니다. */
+    text-align: center; /* 텍스트를 가운데 정렬합니다. */
+}
+
+[data-bs-theme="dark"] .rounded-box {
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* 밝은 색상의 그림자 사용 */
+}

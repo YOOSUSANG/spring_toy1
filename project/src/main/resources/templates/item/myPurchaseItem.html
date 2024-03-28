@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template/sub ::common_header(~{::title},~{::link},~{::style})">
+    <meta charset="UTF-8">
+    <title>구매한 목록</title>
+    <link href="/css/cover.css" rel="stylesheet">
+    <link href="/css/post.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style></style>
+</head>
+<body th:replace="template/sub :: common_body(~{::main},'','privateItem',${principal},true)">
+<main>
+    <hr class="my-3" style="width: 1200px; margin-left: 700px">
+    <div style="width: 700px; margin-left: 800px; position: relative; top: -0px;">
+        <form th:object="${deletePurchase}" method="post" th:action="@{/item/myItem/purchase/delete}">
+            <div style="display: flex; justify-content: space-between;">
+                <h3>내 구매 내역</h3>
+                <th:block th:if="${purchaseItem.size()}!= 0">
+                    <button type="submit" class="btn btn-danger">구매 내역 취소</button>
+                </th:block>
+                <th:block th:if="${purchaseItem.size()==0}">
+                    <button type="submit" class="btn btn-danger" disabled>구매 내역 취소</button>
+                </th:block>
+            </div>
+            <th:block th:if="${purchaseItem.size()} != 0">
+                <div th:each="purchaseItem : ${purchaseItem}">
+                    <hr class="my-3" style="width: 700px;">
+                    <div class="form-check form-check-inline">
+                        취소 <input type="checkbox" th:field="*{tradeDeleteIds}" th:value="${purchaseItem.id}"
+                                  class="form-check-input">
+                    </div>
+                    <li class="question_container">
+                        <div style="display: flex; justify-content: space-between;">
+                            <p style="white-space: nowrap;color: #555555;" th:text="${purchaseItem.itemTag.description}">게시판
+                                이름</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                            <h5 style="margin-right: 450px; white-space: nowrap;" th:text="${purchaseItem.name}">제목</h5>
+                        </div>
+                        <p th:text="${purchaseItem.content}">내용</p>
+                        <img th:if="${purchaseItem.imgFile != null and not #lists.isEmpty(purchaseItem.imgFile)}" th:src="|/Item/images/${purchaseItem.imgFile[0].getStoreFileName()}|" width="300" height="300"/>
+                        <footer style="display: flex; justify-content: space-between;">
+                            <div style="color: #666666;">
+                                게시자: <span th:text="${purchaseItem.nickname}"> 작성자</span> | 작성일:
+                                <time th:text="${#temporals.format(purchaseItem.createTime, 'yyyy-MM-dd HH:mm:ss')}">2024-02-29
+                                </time> | 좋아요: <span th:text="${purchaseItem.likesCount}">0</span>
+                            </div>
+                        </footer>
+                    </li>
+                </div>
+            </th:block>
+            <th:block th:if="${purchaseItem.size()} == 0">
+                <h2 class="text-center" style="margin-top: 450px">
+                    구매 내역이 존재하지 않습니다.
+                </h2>
+            </th:block>
+        </form>
+    </div>
+</main>
+</body>
+</html>
